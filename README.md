@@ -1,2 +1,1 @@
-# neco1-repost
-projekt zyzala 10/3/26
+ÿþ

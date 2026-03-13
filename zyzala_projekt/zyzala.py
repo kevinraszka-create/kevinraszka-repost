@@ -67,9 +67,6 @@ clock.tick(60)
 food_pos = [random.randint(0, width - food_size), random.randint(0, height - food_size)]
 
     # ve while loop
-snake_rect = pygame.Rect(snake_pos[0], snake_pos[1], snake_size, snake_size)
-food_rect = pygame.Rect(food_pos[0], food_pos[1], food_size, food_size)
-
 
 while running:
     for event in pygame.event.get():
@@ -91,20 +88,14 @@ while running:
                             food_size)
     
     if snake_rect.colliderect(food_rect):
-        food_pos = [random.randint(0, width - food_size), random.randint(0, height - food_size)]
-        and snake_size += 5
-        
+            food_pos = [random.randint(0, width - food_size), random.randint(0, height - food_size)]
+   
     screen.fill(black)
     pygame.draw.rect(screen, green, snake_rect)
     pygame.draw.rect(screen, red, food_rect)
     pygame.display.update()
     clock.tick(60)
-     # kolize se stěnou
-    if snake_pos[0] < 0 or snake_pos[0] >= width or snake_pos[1] < 0 or snake_pos[1] >= height:
-        print("Game Over!")
-        running = False
-# nová hlava
-new_head = [Snake[0][0] + dx, Snake[0][1] + dy]
-Snake.insert(0, new_head)
+
+    
 
 pygame.quit()
