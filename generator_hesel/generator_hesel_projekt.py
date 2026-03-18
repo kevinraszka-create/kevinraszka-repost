@@ -15,6 +15,21 @@ def prompt_yes_no(prompt: str, default: bool = True) -> bool:
         print("Neplatná odpověď, zkus to znovu.")
 def prompt_int(prompt: str, min_value: int = None, max_value: int = None, default: int = None) -> int:
 
+    """Prompt the user for an integer within a specified range."""
+    while True:
+        odpoved = input(f"{prompt} [{default}]: ").strip()
+        if not odpoved and default is not None:
+            return default
+        try:
+            value = int(odpoved)
+            if (min_value is not None and value < min_value) or (max_value is not None and value > max_value):
+                print(f"Hodnota musí být mezi {min_value} a {max_value}.")
+                continue
+            return value
+        except ValueError:
+            print("Neplatná hodnota, zkus to znovu.")
+            
+
  
 def generate_password(
     length: int = 12,
