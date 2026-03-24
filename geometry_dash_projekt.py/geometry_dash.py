@@ -48,12 +48,11 @@ class Cube:
 
     def draw(self, screen):
         pygame.draw.rect(screen, BLUE, (self.x, self.y, self.width, self.height))
-
-class Spike:
-    def __init__(self, x):
-        self.x = x
-        self.y = SCREEN_HEIGHT - 50
-        self.width = 30
+class Obstacle:
+    def __init__(self):
+        self.x = SCREEN_WIDTH
+        self.y = SCREEN_HEIGHT - 100
+        self.width = 50
         self.height = 50
         self.speed = 5
 
@@ -61,27 +60,16 @@ class Spike:
         self.x -= self.speed
 
     def draw(self, screen):
-        # Draw a simple spike (triangle)
-        points = [(self.x, self.y), (self.x + self.width//2, self.y - self.height), (self.x + self.width, self.y)]
-        pygame.draw.polygon(screen, RED, points)
-
-    def off_screen(self):
-        return self.x + self.width < 0
-
-def check_collision(cube, spike):
-    cube_rect = pygame.Rect(cube.x, cube.y, cube.width, cube.height)
-    spike_rect = pygame.Rect(spike.x, spike.y - spike.height, spike.width, spike.height)
-    return cube_rect.colliderect(spike_rect)
-
+        pygame.draw.rect(screen, RED, (self.x, self.y, self.width, self.height))
 def main():
     cube = Cube()
-    spikes = []
+    obstacles = []
     score = 0
-    font = pygame.font.Font(None, 36)
+    font = pygame.font.SysFont(None, 36)
 
     running = True
     while running:
-        screen.fill(WHITE)
+        clock.tick(60)  # 60 frames per second
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -89,54 +77,15 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     cube.jump()
-
-        # Update cube
-        cube.update()
-
-        # Add new spikes
-        if random.randint(1, 100) < 3:  # 3% chance each frame
-            spikes.append(Spike(SCREEN_WIDTH))
-
-        # Update and draw spikes
-        for spike in spikes[:]:
-            spike.update()
-            spike.draw(screen)
-            if spike.off_screen():
-                spikes.remove(spike)
+        # Update cube and obstacles\    cube.update()
+        for obstacle in obstacles:
+            obstacle.update()
+            if obstacle.x + obstacle.width < 0:
+                obstacles.remove(obstacle)
                 score += 1
-            elif check_collision(cube, spike):
+            if (cube.x < obstacle.x + obstacle.width and
+                cube.x + cube.width > obstacle.x and
+                cube.y < obstacle.y + obstacle.height and
+                cube.y + cube.height > obstacle.y):
                 running = False  # Game over
 
-        # Draw cube
-        cube.draw(screen)
-
-        # Draw score
-        score_text = font.render(f"Score: {score}", True, BLACK)
-        screen.blit(score_text, (10, 10))
-
-        pygame.display.flip()
-        clock.tick(60)
-
-    # Game over screen
-    screen.fill(WHITE)
-    game_over_text = font.render(f"Game Over! Final Score: {score}", True, BLACK)
-    screen.blit(game_over_text, (SCREEN_WIDTH//2 - 200, SCREEN_HEIGHT//2))
-    restart_text = font.render("Press R to restart or Q to quit", True, BLACK)
-    screen.blit(restart_text, (SCREEN_WIDTH//2 - 150, SCREEN_HEIGHT//2 + 50))
-    pygame.display.flip()
-
-    waiting = True
-    while waiting:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                waiting = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_r:
-                    main()  # Restart
-                if event.key == pygame.K_q:
-                    waiting = False
-
-    pygame.quit()
-
-if __name__ == "__main__":
-    main()
