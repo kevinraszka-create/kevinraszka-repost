@@ -21,11 +21,11 @@ Proběhne otočení rulety (spin)
 Vyhodnotí se výhra nebo prohra
 Aktualizuje se hráčův zůstatek (bank)
 Hlavní funkce:
-🎲 Generování náhodného čísla (spin rulety)
-💰 Správa bankrollu (vklad, výplata)
-🎯 Vyhodnocení sázek
-📜 Uchovávání historie hodů a barev
-🖥️ Interaktivní textové rozhraní
+ Generování náhodného čísla (spin rulety)
+ Správa bankrollu (vklad, výplata)
+ Vyhodnocení sázek
+ Uchovávání historie hodů a barev
+ Interaktivní textové rozhraní
 3. Struktura programu
 Třída Roulette
 
@@ -55,8 +55,8 @@ Odečítá částku z banku
 resolve_bet(amount, choice, roll)
 Vyhodnocuje výsledek sázky
 Vypočítá výplatu:
-🎯 číslo: 36× sázka
-🎨 barva / sudost / lichost: 2× sázka
+ číslo: 36× sázka
+ barva / sudost / lichost: 2× sázka
 get_roll_display(roll)
 Převádí číslo 37 na '00' (americká ruleta)
 Hlavní smyčka (__main__)
