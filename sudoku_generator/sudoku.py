@@ -38,8 +38,14 @@ def remove_cells(board, num_remove):
         row, col = positions[i]
         board[row][col] = 0
 
-if __name__ == "__main__":
+def create_puzzle(num_remove=40):
     puzzle = generate_sudoku()
-    remove_cells(puzzle, 40)  # Remove 40 cells to make it a puzzle
+    remove_cells(puzzle, num_remove)
+    return puzzle
+
+if __name__ == "__main__":
+    puzzle = create_puzzle(40)
     for row in puzzle:
         print(row)
+
+        
