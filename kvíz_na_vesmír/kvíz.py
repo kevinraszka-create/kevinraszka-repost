@@ -11,3 +11,15 @@ def kviz_vesmir():
             "odpoved": "A"
         }
     ]
+    score = 0
+    for otazka in otazky:
+        print(otazka["otazka"])
+        for moznost in otazka["moznosti"]:
+            print(moznost)
+        odpoved = input("Zadejte svou odpověď (A, B, C, D): ").upper()
+        if odpoved == otazka["odpoved"]:
+            print("Správně!")
+            score += 1
+        else:
+            print("Špatně! Správná odpověď je:", otazka["odpoved"])
+        print()
