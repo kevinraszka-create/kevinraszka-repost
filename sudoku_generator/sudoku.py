@@ -2,12 +2,14 @@ import random
 import tkinter as tk
 from tkinter import ttk
 
+# Difficulty map: how many cells to remove for each level
 difficulty_map = {
     "Easy": 35,
     "Medium": 45,
     "Hard": 55,
 }
 
+# Check whether placing num in the given row/col is valid
 def is_valid(board, row, col, num):
     for i in range(9):
         if board[row][i] == num or board[i][col] == num:
@@ -19,6 +21,7 @@ def is_valid(board, row, col, num):
                 return False
     return True
 
+# Backtracking solver to fill the board with a complete solution
 def solve(board):
     for row in range(9):
         for col in range(9):
@@ -34,11 +37,13 @@ def solve(board):
                 return False
     return True
 
+# Generate a fully solved Sudoku board
 def generate_sudoku():
     board = [[0] * 9 for _ in range(9)]
     solve(board)
     return board
 
+# Remove a number of cells from the solved board to make a puzzle
 def remove_cells(board, num_remove):
     positions = [(i, j) for i in range(9) for j in range(9)]
     random.shuffle(positions)
@@ -46,17 +51,20 @@ def remove_cells(board, num_remove):
         row, col = positions[i]
         board[row][col] = 0
 
+# Create a Sudoku puzzle with a given difficulty level
 def create_puzzle(num_remove=40):
     puzzle = generate_sudoku()
     remove_cells(puzzle, num_remove)
     return puzzle
 
+# Convert the board to text lines for display
 def board_to_text(board):
     lines = []
     for row in board:
         lines.append(" ".join(str(num) if num != 0 else "." for num in row))
     return "\n".join(lines)
 
+# Main GUI application
 def main():
     root = tk.Tk()
     root.title("Sudoku Generator")
