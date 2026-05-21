@@ -1,6 +1,14 @@
 import tkinter as tk
 from tkinter import messagebox
 
+root = tk.Tk()
+root.title("Password Manager")
+username_entry = tk.Entry(root)
+password_entry = tk.Entry(root, show="*")
+username_entry.pack()
+password_entry.pack()
+login_button = tk.Button(root, text="Login", command=lambda: on_login())
+login_button.pack()
 
 def on_login():
     username = username_entry.get().strip()
@@ -15,6 +23,8 @@ def on_login():
         messagebox.showinfo("Login Success", "Welcome, {}!".format(username))
     else:
         messagebox.showerror("Login Failed", "Invalid username or password.")
+
+root.mainloop()
 
 
 
