@@ -1,4 +1,4 @@
-
+d
 # Importuje knihovnu tkinter pro tvorbu grafického okna
 import tkinter as tk  
 # tkinter = základní GUI knihovna v Pythonu
