@@ -40,6 +40,14 @@ def koupit_mluveni():
     okno.mainloop()
 
 
+def promluvit():
+    if not koupeno_mluveni:
+        print("Mluvení není odemčeno!")
+        koupit_mluveni()
+    else:
+        print("Ahoj světe!")
+
+
 print("=== EA LIFE SIMULATOR ===")
 print("Narodil ses!")
 print("Narození je zdarma.")
@@ -53,11 +61,7 @@ while True:
     volba = input("> ")
 
     if volba == "1":
-        if not koupeno_mluveni:
-            print("Mluvení není odemčeno!")
-            koupit_mluveni()
-        else:
-            print("Ahoj světe!")
+        promluvit()
 
     elif volba == "2":
         print("Walking DLC není zakoupeno.")
