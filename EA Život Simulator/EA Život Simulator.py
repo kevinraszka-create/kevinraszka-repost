@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 koupeno_mluveni = False
+koupeno_chodit = False
 
 
 def koupit_mluveni():
@@ -40,12 +41,61 @@ def koupit_mluveni():
     okno.mainloop()
 
 
+def koupit_chodit():
+    global koupeno_chodit
+
+    okno = tk.Tk()
+    okno.title("EA Payment Gateway")
+    okno.geometry("350x200")
+
+    tk.Label(
+        okno,
+        text="Walking Pack DLC",
+        font=("Arial", 16, "bold")
+    ).pack(pady=10)
+
+    tk.Label(
+        okno,
+        text="Odemkne možnost chodit\nCena: 1 €"
+    ).pack()
+
+    def zaplatit():
+        global koupeno_chodit
+        koupeno_chodit = True
+        messagebox.showinfo(
+            "Platba úspěšná",
+            "Walking Pack DLC byl zakoupen!"
+        )
+        okno.destroy()
+
+    tk.Button(
+        okno,
+        text="Koupit za 1 €",
+        command=zaplatit
+    ).pack(pady=20)
+
+    okno.mainloop()
+
+
 def promluvit():
     if not koupeno_mluveni:
         print("Mluvení není odemčeno!")
         koupit_mluveni()
     else:
         print("Ahoj světe!")
+
+
+def chodit():
+    if not koupeno_chodit:
+        print("Chodit není odemčeno!")
+        koupit_chodit()
+    else:
+        print("Kráčíš po světě!")
+
+
+def plakat():
+    print("BÉÉÉÉÉÉÉ!")
+    print("Cítíš se lépe po dobrém pláči.")
 
 
 print("=== EA LIFE SIMULATOR ===")
@@ -64,10 +114,14 @@ while True:
         promluvit()
 
     elif volba == "2":
-        print("Walking DLC není zakoupeno.")
+        chodit()
 
     elif volba == "3":
-        print("BÉÉÉÉÉÉÉ!")
+        plakat()
 
     elif volba == "4":
+        print("Hra ukončena. Díky za hraní!")
         break
+
+    else:
+        print("Neplatná volba. Zkus to znovu.")
